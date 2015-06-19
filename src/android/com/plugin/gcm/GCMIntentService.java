@@ -97,16 +97,31 @@ public class GCMIntentService extends GCMBaseIntentService {
 				defaults = Integer.parseInt(extras.getString("defaults"));
 			} catch (NumberFormatException e) {}
 		}
-		
-		NotificationCompat.Builder mBuilder =
-			new NotificationCompat.Builder(context)
-				.setDefaults(defaults)
-				.setSmallIcon(context.getApplicationInfo().icon)
-				.setWhen(System.currentTimeMillis())
-				.setContentTitle(extras.getString("title"))
-				.setTicker(extras.getString("title"))
-				.setContentIntent(contentIntent)
-				.setAutoCancel(true);
+
+
+        NotificationCompat.Builder mBuilder =
+            new NotificationCompat.Builder(context)
+                    .setDefaults(defaults)
+                    .setWhen(System.currentTimeMillis())
+                    .setContentTitle(extras.getString("title"))
+                    .setTicker(extras.getString("title"))
+                    .setContentIntent(contentIntent)
+                .setAutoCancel(true)
+                .setLights(0xFFCC0066, 300, 300)
+                //.setOnlyAlertOnce(true)
+                .setVibrate(new long[]{0, 300, 200, 300, 200, 300})
+                .setColor(0xFFCC0066)
+                .setCategory(Notification.CATEGORY_RECOMMENDATION)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setVisibility(Notification.VISIBILITY_PUBLIC);
+
+        if(Build.VERSION.SDK_INT >= 21) {
+            //Bitmap notificationLogo = BitmapFactory.decodeResource(getResources(), context.getApplicationInfo().icon);
+            mBuilder.setSmallIcon(R.drawable.notification_icon);
+                    //.setLargeIcon(notificationLogo);
+        } else {
+            mBuilder.setSmallIcon(context.getApplicationInfo().icon);
+        }
 
 		String message = extras.getString("message");
 		if (message != null) {

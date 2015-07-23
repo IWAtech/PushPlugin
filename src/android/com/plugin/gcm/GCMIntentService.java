@@ -117,7 +117,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         if(android.os.Build.VERSION.SDK_INT >= 21) {
             //Bitmap notificationLogo = BitmapFactory.decodeResource(getResources(), context.getApplicationInfo().icon);
-            mBuilder.setSmallIcon(R.drawable.notification_icon);
+            mBuilder.setSmallIcon(com.updatemi.app2.R.drawable.notification_icon);
                     //.setLargeIcon(notificationLogo);
         } else {
             mBuilder.setSmallIcon(context.getApplicationInfo().icon);
